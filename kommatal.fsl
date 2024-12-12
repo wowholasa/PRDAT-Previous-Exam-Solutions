@@ -1,0 +1,21 @@
+{ // starting
+module Kommatal_fslex
+open FSharp.Text.Lexing
+open System
+}
+
+rule Tokenize = parse
+  |(['0'-'9']+('.'['0'-'9']+)?)? eof { LexBuffer<char>.LexemeString lexbuf }
+  | _ { failwith "Lexer error: illegal symbol" }
+
+{ // ending
+
+[<EntryPoint>]
+let main argv =
+      printfn "Prøveeksamen, kommatal.\n\nTast et tal:"
+      let input = Console.ReadLine()
+      let res=Tokenize (LexBuffer<char>.FromString input)
+
+      printfn "Lexer genkender %s" res
+      0
+}
